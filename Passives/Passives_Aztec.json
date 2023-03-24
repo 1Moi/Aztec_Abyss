@@ -1,0 +1,20 @@
+[
+    {
+      "id": 1,
+      "passiveName": "Iron Skin",
+      "prerequisites": [],
+      "exclusiveGroup": 0
+    },
+    {
+      "id": 2,
+      "pasiveName": "Tough Skin",
+      "prerequisites": [1],
+      "exclusiveGroup": 0
+    },
+    {
+      "id": 3,
+      "passiveName": "2",
+      "prerequisites": [2],
+      "exclusiveGroup": 2
+    }
+  ]

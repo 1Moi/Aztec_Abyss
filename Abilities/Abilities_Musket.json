@@ -1,0 +1,26 @@
+[
+    {
+      "id": 1,
+      "abilityName": "Musket Shot",
+      "prerequisites": [],
+      "exclusiveGroup": 0
+    },
+    {
+      "id": 2,
+      "abilityName": "Explosive shot",
+      "prerequisites": [1],
+      "exclusiveGroup": 0
+    },
+    {
+      "id": 3,
+      "abilityName": "Sparkling shot",
+      "prerequisites": [2],
+      "exclusiveGroup": 2
+    },
+    {
+      "id": 4,
+      "abilityName": "Burning shot",
+      "prerequisites": [2],
+      "exclusiveGroup": 2
+    }
+  ]

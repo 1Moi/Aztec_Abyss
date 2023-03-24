@@ -1,0 +1,26 @@
+[
+    {
+      "id": 1,
+      "abilityName": "Soothing Flames",
+      "prerequisites": [],
+      "exclusiveGroup": 0
+    },
+    {
+      "id": 2,
+      "abilityName": "Flame of Hope",
+      "prerequisites": [1],
+      "exclusiveGroup": 0
+    },
+    {
+      "id": 3,
+      "abilityName": "Heartful Flames",
+      "prerequisites": [2],
+      "exclusiveGroup": 2
+    },
+    {
+      "id": 4,
+      "abilityName": "Chilling Flames",
+      "prerequisites": [2],
+      "exclusiveGroup": 2
+    }
+  ]

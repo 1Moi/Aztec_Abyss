@@ -1,0 +1,20 @@
+[
+    {
+      "id": 1,
+      "passiveName": "Marked Enemy",
+      "prerequisites": [],
+      "exclusiveGroup": 0
+    },
+    {
+      "id": 2,
+      "pasiveName": "Evasive Movement",
+      "prerequisites": [1],
+      "exclusiveGroup": 0
+    },
+    {
+      "id": 3,
+      "passiveName": "1",
+      "prerequisites": [2],
+      "exclusiveGroup": 2
+    }
+  ]
