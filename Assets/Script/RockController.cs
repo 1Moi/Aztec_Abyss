@@ -16,12 +16,10 @@ public class RockController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Aztec"))
         {
-            canInteract = true;
             rockRb.isKinematic = false;
         }
         else
         {
-            canInteract = false;
             rockRb.isKinematic = true;
         }
     }
@@ -30,7 +28,6 @@ public class RockController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Aztec"))
         {
-            canInteract = false;
             rockRb.isKinematic = true;
         }
     }

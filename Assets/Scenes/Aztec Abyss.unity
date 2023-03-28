@@ -516,7 +516,7 @@ PrefabInstance:
         type: 3}
       propertyPath: flameEffectPrefab
       value: 
-      objectReference: {fileID: 5627891485021160149, guid: 214dae1df762300448fd5d7f08f28cc7,
+      objectReference: {fileID: 2880133987890318486, guid: 214dae1df762300448fd5d7f08f28cc7,
         type: 3}
     - target: {fileID: 5506083963404916440, guid: 2ddf437aa73318e4b84da38830d2648f,
         type: 3}
@@ -1048,7 +1048,7 @@ PrefabInstance:
         type: 3}
       propertyPath: flameEffectPrefab
       value: 
-      objectReference: {fileID: 5627891485021160149, guid: 214dae1df762300448fd5d7f08f28cc7,
+      objectReference: {fileID: 2880133987890318486, guid: 214dae1df762300448fd5d7f08f28cc7,
         type: 3}
     - target: {fileID: 5506083963404916440, guid: 2ddf437aa73318e4b84da38830d2648f,
         type: 3}
@@ -1509,7 +1509,7 @@ PrefabInstance:
         type: 3}
       propertyPath: flameEffectPrefab
       value: 
-      objectReference: {fileID: 5627891485021160149, guid: 214dae1df762300448fd5d7f08f28cc7,
+      objectReference: {fileID: 7909062919463697644, guid: a7c738888aa2e4e40b5a6cdae863ab69,
         type: 3}
     - target: {fileID: 5506083963404916440, guid: 2ddf437aa73318e4b84da38830d2648f,
         type: 3}

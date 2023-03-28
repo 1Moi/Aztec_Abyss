@@ -167,3 +167,9 @@ MonoBehaviour:
     m_Bits: 0
   groundCheck: {fileID: 0}
   checkRadius: 0.2
+  projectilePrefab: {fileID: 0}
+  flameEffectPrefab: {fileID: 0}
+  projectileSpeed: 10
+  flameEffectDuration: 2
+  projectileDuration: 2
+  flameOffset: 0.5
