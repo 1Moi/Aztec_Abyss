@@ -9,6 +9,12 @@ public class CharacterController2D : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private float checkRadius = 0.2f;
+    [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private GameObject flameEffectPrefab;
+    [SerializeField] private float projectileSpeed = 10f;
+    [SerializeField] private float flameEffectDuration = 2f;
+    [SerializeField] private float projectileDuration = 2f;
+    [SerializeField] private float flameOffset = 0.5f;
 
     private Rigidbody rb;
     private bool isGrounded;
@@ -26,7 +32,6 @@ public class CharacterController2D : MonoBehaviour
 
         moveInput = Input.GetAxisRaw("Horizontal");
         rb.velocity = new Vector3(moveInput * moveSpeed, rb.velocity.y, 0);
-        rb.position = new Vector3(rb.position.x, rb.position.y, 0); // Lock the Z-axis position
 
         if (isFacingRight && moveInput < 0)
             Flip();
@@ -36,10 +41,9 @@ public class CharacterController2D : MonoBehaviour
         if (Input.GetButtonDown("Jump") && isGrounded)
             rb.AddForce(Vector3.up * jumpForce);
 
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Action"))
             PerformAction();
     }
-
 
     private void Flip()
     {
@@ -51,6 +55,21 @@ public class CharacterController2D : MonoBehaviour
 
     private void PerformAction()
     {
+        if (this.gameObject.name == "Child")
+        {
+            Vector3 flamePosition = transform.position + transform.right * (isFacingRight ? flameOffset : -flameOffset);
+            flamePosition.y += 0.5f; // Adjust this value to change the height of the flame AOE
+            Quaternion flameRotation = Quaternion.Euler(-90, 0, 0);
+            GameObject flameEffect = Instantiate(flameEffectPrefab, flamePosition, flameRotation);
+            Destroy(flameEffect, flameEffectDuration);
+        }
+        else if (this.gameObject.name == "European")
+        {
+            GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+            Rigidbody projectileRb = projectile.GetComponent<Rigidbody>();
+            projectileRb.velocity = transform.right * (isFacingRight ? projectileSpeed : -projectileSpeed);
+            Destroy(projectile, projectileDuration);
+        }
         Debug.Log("Action performed");
     }
 }

@@ -416,6 +416,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2798467797874912345, guid: 2ddf437aa73318e4b84da38830d2648f,
+        type: 3}
+      propertyPath: m_Mass
+      value: 1.2
+      objectReference: {fileID: 0}
     - target: {fileID: 2798467797874912347, guid: 2ddf437aa73318e4b84da38830d2648f,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -486,11 +491,33 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2798467797874912359, guid: 2ddf437aa73318e4b84da38830d2648f,
+        type: 3}
+      propertyPath: m_TagString
+      value: Aztec
+      objectReference: {fileID: 0}
+    - target: {fileID: 5506083963404916440, guid: 2ddf437aa73318e4b84da38830d2648f,
+        type: 3}
+      propertyPath: jumpForce
+      value: 350
+      objectReference: {fileID: 0}
     - target: {fileID: 5506083963404916440, guid: 2ddf437aa73318e4b84da38830d2648f,
         type: 3}
       propertyPath: groundCheck
       value: 
       objectReference: {fileID: 1355225361}
+    - target: {fileID: 5506083963404916440, guid: 2ddf437aa73318e4b84da38830d2648f,
+        type: 3}
+      propertyPath: projectilePrefab
+      value: 
+      objectReference: {fileID: 4856490265319183995, guid: 3344a8b49bb39734991edcbe2a69f6ff,
+        type: 3}
+    - target: {fileID: 5506083963404916440, guid: 2ddf437aa73318e4b84da38830d2648f,
+        type: 3}
+      propertyPath: flameEffectPrefab
+      value: 
+      objectReference: {fileID: 5627891485021160149, guid: 214dae1df762300448fd5d7f08f28cc7,
+        type: 3}
     - target: {fileID: 5506083963404916440, guid: 2ddf437aa73318e4b84da38830d2648f,
         type: 3}
       propertyPath: groundLayer.m_Bits
@@ -916,6 +943,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2798467797874912344, guid: 2ddf437aa73318e4b84da38830d2648f,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2798467797874912347, guid: 2ddf437aa73318e4b84da38830d2648f,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -986,11 +1018,38 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2798467797874912359, guid: 2ddf437aa73318e4b84da38830d2648f,
+        type: 3}
+      propertyPath: m_TagString
+      value: European
+      objectReference: {fileID: 0}
+    - target: {fileID: 5506083963404916440, guid: 2ddf437aa73318e4b84da38830d2648f,
+        type: 3}
+      propertyPath: jumpForce
+      value: 350
+      objectReference: {fileID: 0}
     - target: {fileID: 5506083963404916440, guid: 2ddf437aa73318e4b84da38830d2648f,
         type: 3}
       propertyPath: groundCheck
       value: 
       objectReference: {fileID: 1699306125}
+    - target: {fileID: 5506083963404916440, guid: 2ddf437aa73318e4b84da38830d2648f,
+        type: 3}
+      propertyPath: projectileSpeed
+      value: 75
+      objectReference: {fileID: 0}
+    - target: {fileID: 5506083963404916440, guid: 2ddf437aa73318e4b84da38830d2648f,
+        type: 3}
+      propertyPath: projectilePrefab
+      value: 
+      objectReference: {fileID: 4856490265319183995, guid: 3344a8b49bb39734991edcbe2a69f6ff,
+        type: 3}
+    - target: {fileID: 5506083963404916440, guid: 2ddf437aa73318e4b84da38830d2648f,
+        type: 3}
+      propertyPath: flameEffectPrefab
+      value: 
+      objectReference: {fileID: 5627891485021160149, guid: 214dae1df762300448fd5d7f08f28cc7,
+        type: 3}
     - target: {fileID: 5506083963404916440, guid: 2ddf437aa73318e4b84da38830d2648f,
         type: 3}
       propertyPath: groundLayer.m_Bits
@@ -1425,6 +1484,16 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2798467797874912359, guid: 2ddf437aa73318e4b84da38830d2648f,
+        type: 3}
+      propertyPath: m_TagString
+      value: Child
+      objectReference: {fileID: 0}
+    - target: {fileID: 5506083963404916440, guid: 2ddf437aa73318e4b84da38830d2648f,
+        type: 3}
+      propertyPath: flameOffset
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5506083963404916440, guid: 2ddf437aa73318e4b84da38830d2648f,
         type: 3}
       propertyPath: groundCheck
@@ -1432,8 +1501,25 @@ PrefabInstance:
       objectReference: {fileID: 391118439}
     - target: {fileID: 5506083963404916440, guid: 2ddf437aa73318e4b84da38830d2648f,
         type: 3}
+      propertyPath: projectilePrefab
+      value: 
+      objectReference: {fileID: 4856490265319183995, guid: 3344a8b49bb39734991edcbe2a69f6ff,
+        type: 3}
+    - target: {fileID: 5506083963404916440, guid: 2ddf437aa73318e4b84da38830d2648f,
+        type: 3}
+      propertyPath: flameEffectPrefab
+      value: 
+      objectReference: {fileID: 5627891485021160149, guid: 214dae1df762300448fd5d7f08f28cc7,
+        type: 3}
+    - target: {fileID: 5506083963404916440, guid: 2ddf437aa73318e4b84da38830d2648f,
+        type: 3}
       propertyPath: groundLayer.m_Bits
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5506083963404916440, guid: 2ddf437aa73318e4b84da38830d2648f,
+        type: 3}
+      propertyPath: flameEffectDuration
+      value: 0.3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ddf437aa73318e4b84da38830d2648f, type: 3}
