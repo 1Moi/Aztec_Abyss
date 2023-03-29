@@ -55,7 +55,27 @@ public class CharacterController2D : MonoBehaviour
 
     private void PerformAction()
     {
-        if (this.gameObject.name == "Child")
+        Interactable interactable = FindClosestInteractable();
+        if (interactable != null && interactable.canInteract)
+        {
+            if (interactable.requiresKey)
+            {
+                // Check if the player has the required key to open the door or chest
+                if (SharedInventory.Instance.HasCollectible(interactable.requiredKeyId))
+                {
+                    // Open the door or chest
+                    interactable.Interact();
+                    Debug.Log("Opened door or chest");
+                }
+            }
+            else
+            {
+                // Open the door or chest
+                interactable.Interact();
+                Debug.Log("Opened door or chest");
+            }
+        }
+        else if (this.gameObject.name == "Child")
         {
             Vector3 flamePosition = transform.position + transform.right * (isFacingRight ? flameOffset : -flameOffset);
             flamePosition.y += 0.5f; // Adjust this value to change the height of the flame AOE
@@ -71,5 +91,30 @@ public class CharacterController2D : MonoBehaviour
             Destroy(projectile, projectileDuration);
         }
         Debug.Log("Action performed");
+    }
+    private Interactable FindClosestInteractable()
+    {
+        Interactable[] interactables = FindObjectsOfType<Interactable>();
+        Interactable closest = null;
+        float minDistance = Mathf.Infinity;
+        Vector3 currentPosition = transform.position;
+
+        foreach (Interactable interactable in interactables)
+        {
+            float distance = Vector3.Distance(currentPosition, interactable.transform.position);
+            if (distance < minDistance && interactable.canInteract)
+            {
+                closest = interactable;
+                minDistance = distance;
+            }
+        }
+
+        return closest;
+    }
+
+    private bool HasKey(string keyName)
+    {
+        // Implement your inventory logic here to check if the player has the required key
+        return true; // For testing purposes, return true to assume the player always has the key
     }
 }
