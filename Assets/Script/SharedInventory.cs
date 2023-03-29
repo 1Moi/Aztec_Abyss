@@ -21,18 +21,14 @@ public class SharedInventory : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    public void AddCollectible(GameObject collectible)
+    public void AddCollectible(string keyName)
     {
-        KeyIdentifier keyIdentifier = collectible.GetComponent<KeyIdentifier>();
-        if (keyIdentifier != null)
-        {
-            collectedItems.Add(keyIdentifier.keyId);
-            Debug.Log("Collected: " + keyIdentifier.keyId);
-        }
+        collectedItems.Add(keyName);
+        Debug.Log("Collected: " + keyName);
     }
 
-    public bool HasCollectible(string keyId)
+    public bool HasCollectible(string keyName)
     {
-        return collectedItems.Contains(keyId);
+        return collectedItems.Contains(keyName);
     }
 }

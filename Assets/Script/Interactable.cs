@@ -4,20 +4,11 @@ using UnityEngine;
 
 public class Interactable : MonoBehaviour
 {
-    public bool canInteract = true;
+    public bool canInteract = false;
     public bool requiresKey = false;
-    [SerializeField] private GameObject keyPrefab; // Reference the key GameObject
-    public string requiredKeyId; // Add this line to store the required key ID
-    public bool destroyOnInteract = false;
-
-    private void Awake()
-    {
-        if (keyPrefab != null)
-        {
-            KeyIdentifier keyIdentifier = keyPrefab.GetComponent<KeyIdentifier>();
-            requiredKeyId = keyIdentifier.keyId;
-        }
-    }
+    [SerializeField] private string _requiredKeyName;
+    public string requiredKeyName { get { return _requiredKeyName; } private set { _requiredKeyName = value; } }
+    public bool destroyOnInteract = true;
 
     public void Interact()
     {

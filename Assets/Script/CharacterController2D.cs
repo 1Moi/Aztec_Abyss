@@ -62,7 +62,7 @@ public class CharacterController2D : MonoBehaviour
             if (interactable.requiresKey)
             {
                 // Check if the player has the required key to open the door or chest
-                if (SharedInventory.Instance.HasCollectible(interactable.requiredKeyId))
+                if (SharedInventory.Instance.HasCollectible(interactable.requiredKeyName))
                 {
                     // Open the door or chest
                     interactable.Interact();
