@@ -15,6 +15,7 @@ public class CharacterController2D : MonoBehaviour
     [SerializeField] private float flameEffectDuration = 2f;
     [SerializeField] private float projectileDuration = 2f;
     [SerializeField] private float flameOffset = 0.5f;
+    [SerializeField] private Vector3 spawnOffset = new Vector3(1f, 0, 0); // Default value
 
     private Rigidbody rb;
     private bool isGrounded;
@@ -85,7 +86,10 @@ public class CharacterController2D : MonoBehaviour
         }
         else if (this.gameObject.name == "European")
         {
-            GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+            Vector3 adjustedSpawnOffset = new Vector3(isFacingRight ? spawnOffset.x : -spawnOffset.x, spawnOffset.y, spawnOffset.z);
+            Vector3 spawnPosition = transform.position + adjustedSpawnOffset;
+
+            GameObject projectile = Instantiate(projectilePrefab, spawnPosition, Quaternion.identity);
             Rigidbody projectileRb = projectile.GetComponent<Rigidbody>();
             projectileRb.velocity = transform.right * (isFacingRight ? projectileSpeed : -projectileSpeed);
             Destroy(projectile, projectileDuration);

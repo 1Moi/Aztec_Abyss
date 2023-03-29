@@ -12,7 +12,6 @@ public class CharacterSwitcher : MonoBehaviour
         get { return activeCharacterIndex; }
     }
 
-
     private void Start()
     {
         for (int i = 0; i < characters.Count; i++)

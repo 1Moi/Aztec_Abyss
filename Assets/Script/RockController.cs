@@ -5,30 +5,50 @@ using UnityEngine;
 public class RockController : MonoBehaviour
 {
     private Rigidbody rockRb;
-    private bool canInteract;
+    private bool onGround;
+
+    [SerializeField] private LayerMask groundLayer;
 
     private void Start()
     {
         rockRb = GetComponent<Rigidbody>();
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void Update()
     {
-        if (collision.gameObject.CompareTag("Aztec"))
+        RaycastHit hit;
+        float distanceToGround = GetComponent<Collider>().bounds.extents.y + 0.1f;
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, distanceToGround, groundLayer))
         {
-            rockRb.isKinematic = false;
+            onGround = true;
         }
         else
         {
-            rockRb.isKinematic = true;
+            onGround = false;
+        }
+
+        if (!onGround)
+        {
+            rockRb.isKinematic = false;
         }
     }
 
-    private void OnCollisionExit(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("Aztec"))
+        if (other.CompareTag("European") || other.CompareTag("Child"))
         {
-            rockRb.isKinematic = true;
+            if (onGround)
+            {
+                rockRb.isKinematic = true;
+            }
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("European") || other.CompareTag("Child"))
+        {
+            rockRb.isKinematic = false;
         }
     }
 }

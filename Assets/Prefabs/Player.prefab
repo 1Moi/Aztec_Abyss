@@ -164,14 +164,15 @@ MonoBehaviour:
   jumpForce: 400
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
-  groundCheck: {fileID: 0}
+    m_Bits: 8
+  groundCheck: {fileID: 2798467797354624926}
   checkRadius: 0.2
   projectilePrefab: {fileID: 4856490265319183995, guid: 3344a8b49bb39734991edcbe2a69f6ff,
     type: 3}
   flameEffectPrefab: {fileID: 7909062919463697644, guid: a7c738888aa2e4e40b5a6cdae863ab69,
     type: 3}
-  projectileSpeed: 10
+  projectileSpeed: 60
   flameEffectDuration: 0.3
   projectileDuration: 2
   flameOffset: 2
+  spawnOffset: {x: 1, y: 0, z: 0}
