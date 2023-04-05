@@ -1,0 +1,67 @@
+{
+  "abilities": [
+    {
+      "Id": 7,
+      "AbilityName": "Musket Shot",
+      "ImagePath": "Image/Used_one/Musket_shot",
+      "Prerequisites": [],
+      "ExclusiveGroup": 0,
+      "RangeMin": 1,
+      "RangeMax": 2,
+      "TargetsMin": 1,
+      "TargetsMax": 1,
+      "TargetSpots": [4, 5, 6],
+      "Damage": {
+        "physical": 10
+      },
+      "Healing": 0,
+      "BuffDuration": 0,
+      "DebuffDuration": 0,
+      "IsTaunt": false,
+      "IsStun": false,
+      "IsSelf": false
+    },
+    {
+      "Id": 8,
+      "AbilityName": "Explosive Shot",
+      "ImagePath": "Image/Used_one/Explosive_shot",
+      "Prerequisites": [7],
+      "ExclusiveGroup": 0,
+      "RangeMin": 2,
+      "RangeMax": 3,
+      "TargetsMin": 1,
+      "TargetsMax": 1,
+      "TargetSpots": [4],
+      "Damage": {
+        "physical": 16
+      },
+      "Healing": 0,
+      "BuffDuration": 0,
+      "DebuffDuration": 0,
+      "IsTaunt": false,
+      "IsStun": false,
+      "IsSelf": false
+    },
+    {
+      "Id": 9,
+      "AbilityName": "Sparkling Shot",
+      "ImagePath": "Image/Used_one/Sparkling_shot",
+      "Prerequisites": [8],
+      "ExclusiveGroup": 2,
+      "RangeMin": 1,
+      "RangeMax": 1,
+      "TargetsMin": 3,
+      "TargetsMax": 3,
+      "TargetSpots": [4, 5, 6],
+      "Damage": {
+        "physical": 3
+      },
+      "Healing": 0,
+      "BuffDuration": 0,
+      "DebuffDuration": 2,
+      "IsTaunt": false,
+      "IsStun": false,
+      "IsSelf": false
+    }
+  ]
+}

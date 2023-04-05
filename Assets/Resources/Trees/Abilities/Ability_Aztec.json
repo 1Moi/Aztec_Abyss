@@ -1,0 +1,65 @@
+{
+  "abilities": [
+    {
+      "Id": 4,
+      "AbilityName": "Armor Up",
+      "ImagePath": "Image/Used_one/Armor_Up",
+      "Prerequisites": [],
+      "ExclusiveGroup": 0,
+      "RangeMin": 1,
+      "RangeMax": 2,
+      "TargetsMin": 1,
+      "TargetsMax": 1,
+      "TargetSpots": [1, 2],
+      "Damage": {},
+      "Healing": 0,
+      "BuffDuration": 2,
+      "DebuffDuration": 0,
+      "IsTaunt": false,
+      "IsStun": false,
+      "IsSelf": true
+    },
+    {
+      "Id": 5,
+      "AbilityName": "Macuahuitl Slash",
+      "ImagePath": "Image/Used_one/Macuahuitl_Slash",
+      "Prerequisites": [4],
+      "ExclusiveGroup": 0,
+      "RangeMin": 1,
+      "RangeMax": 1,
+      "TargetsMin": 1,
+      "TargetsMax": 1,
+      "TargetSpots": [4, 5],
+      "Damage": {
+        "physical": 8
+      },
+      "Healing": 0,
+      "BuffDuration": 0,
+      "DebuffDuration": 0,
+      "IsTaunt": false,
+      "IsStun": true,
+      "IsSelf": false
+    },
+    {
+      "Id": 6,
+      "AbilityName": "Taunt",
+      "ImagePath": "Image/Used_one/Taunt",
+      "Prerequisites": [5],
+      "ExclusiveGroup": 1,
+      "RangeMin": 1,
+      "RangeMax": 1,
+      "TargetsMin": 1,
+      "TargetsMax": 1,
+      "TargetSpots": [4, 5],
+      "Damage": {
+        "physical": 0
+      },
+      "Healing": 0,
+      "BuffDuration": 0,
+      "DebuffDuration": 0,
+      "IsTaunt": true,
+      "IsStun": false,
+      "IsSelf": false
+    }
+  ]
+}
