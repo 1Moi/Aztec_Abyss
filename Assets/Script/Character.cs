@@ -4,6 +4,7 @@ using UnityEngine;
 using System.IO;
 using Newtonsoft.Json;
 using System.Linq;
+using System;
 
 public class Character : MonoBehaviour
 {
@@ -12,11 +13,30 @@ public class Character : MonoBehaviour
     [SerializeField]
     public int MaxHealth;
     [SerializeField]
-    public int CurrentHealth;
+    private int currentHealth;
+    public int CurrentHealth
+    {
+        get { return currentHealth; }
+        set
+        {
+            currentHealth = value;
+            float healthPercentage = (float)currentHealth / (float)MaxHealth;
+            OnHealthChanged?.Invoke(healthPercentage);
+            UpdateHealthUI();
+        }
+    }
     [SerializeField]
     public int Initiative;
     [SerializeField]
     public int Position;
+    [SerializeField]
+    private bool isPlayerCharacter;
+
+    public bool IsPlayerCharacter
+    {
+        get { return isPlayerCharacter; }
+        set { isPlayerCharacter = value; }
+    }
     [SerializeField]
     [HideInInspector]
     public List<Ability> Abilities;
@@ -35,8 +55,22 @@ public class Character : MonoBehaviour
 
     [SerializeField]
     public List<ResistanceEntry> Resistances;
+    [SerializeField]
+    public Sprite CharacterImage;
 
-    public int abilityPoints = 3; // Assign the initial ability points for each character in the Unity editor
+    public int abilityPoints = 3;
+
+    public EnemyTemplate EnemyTemplate { get; set; }
+
+    public bool IsStunned { get; set; }
+    public Character TauntTarget { get; set; }
+
+    public event Action<float> OnHealthChanged;
+
+    public void ApplyTaunt(Character taunter)
+    {
+        TauntTarget = taunter;
+    }
 
     public Character(string characterName, int maxHealth, int initiative)
     {
@@ -85,9 +119,46 @@ public class Character : MonoBehaviour
         }
     }
 
-    public bool LearnAbility(int abilityId)
+    public void LoadAbilitiesFromTemplate(SkillTreeLoader skillTreeLoader)
     {
-        if (abilityPoints <= 0)
+        if (EnemyTemplate == null)
+        {
+            Debug.LogError("EnemyTemplate not set for this character");
+            return;
+        }
+
+        // Load the abilities from the SkillTreeLoader
+        foreach (int abilityId in EnemyTemplate.abilityIds)
+        {
+            Ability ability = skillTreeLoader.GetEnemyAbilityById(abilityId);
+            if (ability != null)
+            {
+                Abilities.Add(ability); // Add the ability to the Abilities list
+                LearnAbility(abilityId); // Learn the ability using the LearnAbility method
+            }
+            else
+            {
+                Debug.LogError($"Ability with ID {abilityId} not found");
+            }
+        }
+    }
+
+    private void LoadAbilityForEnemy(int abilityId, List<Ability> enemyAbilities)
+    {
+        Ability ability = enemyAbilities.FirstOrDefault(a => a.Id == abilityId);
+        if (ability != null)
+        {
+            LearnAbility(abilityId);
+        }
+        else
+        {
+            Debug.LogError($"Ability with ID {abilityId} not found");
+        }
+    }
+
+    public bool LearnAbility(int abilityId, bool ignorePrerequisites = false)
+    {
+        if (!ignorePrerequisites && abilityPoints <= 0)
         {
             Debug.Log($"{CharacterName} has no available ability points");
             return false;
@@ -98,13 +169,16 @@ public class Character : MonoBehaviour
         if (abilityToLearn != null)
         {
             // Check prerequisites
-            bool prerequisitesMet = abilityToLearn.Prerequisites.All(prerequisiteId => LearnedAbilities.Any(learnedAbility => learnedAbility.Id == prerequisiteId));
+            bool prerequisitesMet = ignorePrerequisites || abilityToLearn.Prerequisites.All(prerequisiteId => LearnedAbilities.Any(learnedAbility => learnedAbility.Id == prerequisiteId));
 
             if (prerequisitesMet)
             {
                 LearnedAbilities.Add(abilityToLearn);
                 Debug.Log($"{CharacterName} learned {abilityToLearn.AbilityName}");
-                abilityPoints--; // Decrease the ability points
+                if (!ignorePrerequisites)
+                {
+                    abilityPoints--; // Decrease the ability points
+                }
                 return true;
             }
             else
@@ -114,6 +188,11 @@ public class Character : MonoBehaviour
         }
 
         return false;
+    }
+
+    public bool IsDead()
+    {
+        return CurrentHealth <= 0;
     }
 
     public int GetResistanceValue(string resistanceType)
@@ -137,13 +216,37 @@ public class Character : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        Debug.Log($"{CharacterName} taking damage: {damage}");
         CurrentHealth -= damage;
         if (CurrentHealth < 0) CurrentHealth = 0;
+
+        float healthPercentage = (float)CurrentHealth / (float)MaxHealth;
+        if (OnHealthChanged != null)
+        {
+            OnHealthChanged(healthPercentage);
+        }
     }
 
     public void Heal(int amount)
     {
         CurrentHealth += amount;
         if (CurrentHealth > MaxHealth) CurrentHealth = MaxHealth;
+
+        float healthPercentage = (float)CurrentHealth / (float)MaxHealth;
+        if (OnHealthChanged != null)
+        {
+            OnHealthChanged(healthPercentage);
+        }
+    }
+
+    public void ApplyStun()
+    {
+        IsStunned = true;
+    }
+
+
+    private void UpdateHealthUI()
+    {
+        // Update the character's health UI here
     }
 }

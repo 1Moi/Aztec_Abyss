@@ -1,0 +1,45 @@
+{
+    "abilities": [
+      {
+        "Id": 20,
+        "AbilityName": "Bone Strike",
+        "Prerequisites": [],
+        "ExclusiveGroup": 0,
+        "RangeMin": 4,
+        "RangeMax": 6,
+        "TargetsMin": 1,
+        "TargetsMax": 1,
+        "TargetSpots": [1, 2],
+        "Damage": {
+            "Physical": 7
+        },
+        "Healing": 0,
+        "BuffDuration": 0,
+        "DebuffDuration": 0,
+        "IsTaunt": false,
+        "IsStun": false,
+        "IsSelf": false
+      },
+      {
+        "Id": 21,
+        "AbilityName": "Scratch",
+        "Prerequisites": [],
+        "ExclusiveGroup": 0,
+        "RangeMin": 4,
+        "RangeMax": 6,
+        "TargetsMin": 1,
+        "TargetsMax": 1,
+        "TargetSpots": [1, 2, 3],
+        "Damage": {
+            "Physical": 5
+        },
+        "Healing": 0,
+        "BuffDuration": 0,
+        "DebuffDuration": 0,
+        "IsTaunt": false,
+        "IsStun": false,
+        "IsSelf": false
+      }
+    ]
+  }
+  

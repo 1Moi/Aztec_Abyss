@@ -15,7 +15,8 @@ public class CharacterController2D : MonoBehaviour
     [SerializeField] private float flameEffectDuration = 2f;
     [SerializeField] private float projectileDuration = 2f;
     [SerializeField] private float flameOffset = 0.5f;
-    [SerializeField] private Vector3 spawnOffset = new Vector3(1f, 0, 0); // Default value
+    [SerializeField] private Vector3 spawnOffset = new Vector3(1f, 0, 0);
+    [SerializeField] private GameObject SkillTreeContainer;
 
     private Rigidbody rb;
     private bool isGrounded;
@@ -44,6 +45,12 @@ public class CharacterController2D : MonoBehaviour
 
         if (Input.GetButtonDown("Action"))
             PerformAction();
+
+        if (Input.GetButtonDown("SkillTree"))
+            if (SkillTreeContainer.activeSelf)
+                SkillTreeContainer.SetActive(false);
+            else 
+                SkillTreeContainer.SetActive(true);
     }
 
     private void Flip()

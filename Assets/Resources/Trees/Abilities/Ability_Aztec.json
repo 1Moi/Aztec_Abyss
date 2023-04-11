@@ -48,12 +48,10 @@
       "ExclusiveGroup": 1,
       "RangeMin": 1,
       "RangeMax": 1,
-      "TargetsMin": 1,
-      "TargetsMax": 1,
+      "TargetsMin": 2,
+      "TargetsMax": 2,
       "TargetSpots": [4, 5],
-      "Damage": {
-        "physical": 0
-      },
+      "Damage": {},
       "Healing": 0,
       "BuffDuration": 0,
       "DebuffDuration": 0,

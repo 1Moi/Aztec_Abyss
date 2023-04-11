@@ -80,9 +80,17 @@ public class SkillTreeLoader : MonoBehaviour
     public GameObject[] skillTreeWindows;
     private int currentSkillTreeIndex = 0;
 
+    private List<Ability> enemyAbilities;
+
     public Character character1;
     public Character character2;
     public Character character3;
+    public Character EnemyCharacter;
+
+    private void Awake()
+    {
+        LoadEnemiesAbilities();
+    }
 
     private void Start()
     {
@@ -95,12 +103,29 @@ public class SkillTreeLoader : MonoBehaviour
         UpdateAbilityPointCount(skillTreeWindows[2], character3.abilityPoints);
     }
 
+    public Ability GetEnemyAbilityById(int abilityId)
+    {
+        return enemyAbilities.Find(a => a.Id == abilityId);
+    }
+
     private void LoadCharacterSkillTrees()
     {
         // Pass Character objects to the LoadSkillTreeForCharacter method
         LoadSkillTreeForCharacter("Trees/Abilities/Ability_Aztec", skillTreeWindows[0], character1);
         LoadSkillTreeForCharacter("Trees/Abilities/Ability_European", skillTreeWindows[1], character2);
         LoadSkillTreeForCharacter("Trees/Abilities/Ability_Child", skillTreeWindows[2], character3);
+    }
+
+    private void LoadEnemiesAbilities()
+    {
+        enemyAbilities = LoadAbilityData("Trees/Abilities/EnemiesAbilities");
+
+        // Add this debug message
+        Debug.Log("Enemy abilities in SkillTreeLoader:");
+        foreach (Ability ability in enemyAbilities)
+        {
+            Debug.Log($"- {ability.AbilityName} (ID: {ability.Id})");
+        }
     }
 
     private void LoadSkillTreeForCharacter(string path, GameObject skillTreeWindow, Character character)
