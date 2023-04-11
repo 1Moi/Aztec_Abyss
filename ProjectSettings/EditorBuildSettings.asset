@@ -5,7 +5,25 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/Main Menu.unity
+    guid: f6bc7f3f75785954aad939b46ddc3564
+  - enabled: 1
+    path: Assets/Scenes/Aztec Abyss.unity
+    guid: b4bc8989187ff9343930e67ee329d508
+  - enabled: 1
+    path: Assets/Scenes/ControlsScene.unity
+    guid: 9cc64068d5ebb4044ab5d31d9aaf7ca8
+  - enabled: 1
+    path: Assets/Scenes/CreditsScreen.unity
+    guid: d0d7dbeed3f53ce4292f0d74176216ca
+  - enabled: 1
+    path: Assets/Scenes/OptionsScreen.unity
+    guid: 972be4f20b445054a9f2a7d33c30799f
+  - enabled: 1
+    path: Assets/Scenes/UI test.unity
+    guid: 5d348238007d2b74b8b4b68637063fd8
   m_configObjects: {}
