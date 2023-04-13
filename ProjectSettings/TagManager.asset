@@ -11,6 +11,8 @@ TagManager:
   - FLAMES
   - Bullet
   - THE ROCK
+  - ToolTipDisplay
+  - ToolTipPanel
   layers:
   - Default
   - TransparentFX
