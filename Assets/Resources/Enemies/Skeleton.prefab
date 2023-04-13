@@ -45,8 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CharacterName: Skeleton
-  MaxHealth: 7
-  currentHealth: 7
+  MaxHealth: 10
+  currentHealth: 10
   Initiative: 3
   Position: 1
   isPlayerCharacter: 0
