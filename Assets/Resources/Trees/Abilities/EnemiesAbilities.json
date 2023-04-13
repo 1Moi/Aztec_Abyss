@@ -31,7 +31,7 @@
         "TargetsMax": 1,
         "TargetSpots": [1, 2, 3],
         "Damage": {
-            "Physical": 2
+            "Physical": 3
         },
         "Healing": 0,
         "BuffDuration": 0,

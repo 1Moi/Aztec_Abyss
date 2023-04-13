@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/UI test.unity
     guid: 5d348238007d2b74b8b4b68637063fd8
+  - enabled: 1
+    path: Assets/Scenes/EchapMenu.unity
+    guid: 1e127f5f95c7aa54888486d2c2dbbf6e
   m_configObjects: {}

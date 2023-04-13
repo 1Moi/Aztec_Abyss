@@ -42,5 +42,6 @@ public class MySceneManager : MonoBehaviour
         }
 
         AsyncOperation asyncLoad = SceneManager.UnloadSceneAsync(battleSceneName);
+        SceneManager.LoadScene("Aztec Abyss");
     }
 }

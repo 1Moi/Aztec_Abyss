@@ -505,13 +505,13 @@ public class CombatSystem : MonoBehaviour
         if (PlayerCharacters.All(c => c.IsDead()))
         {
             Debug.Log("You lost!");
-            sceneManager.OnWin();
+            sceneManager.OnLose();
             return;
         }
         if (EnemyCharacters.All(c => c.IsDead()))
         {
             Debug.Log("You won!");
-            sceneManager.OnLose();
+            sceneManager.OnWin();
             return;
         }
 
