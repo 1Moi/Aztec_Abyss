@@ -67,11 +67,6 @@ public class Character : MonoBehaviour
 
     public event Action<float> OnHealthChanged;
 
-    public void ApplyTaunt(Character taunter)
-    {
-        TauntTarget = taunter;
-    }
-
     public Character(string characterName, int maxHealth, int initiative)
     {
         CharacterName = characterName;
@@ -244,7 +239,11 @@ public class Character : MonoBehaviour
         IsStunned = true;
     }
 
-
+    public void ApplyTaunt(Character taunter)
+    {
+        TauntTarget = taunter;
+    }
+    
     private void UpdateHealthUI()
     {
         // Update the character's health UI here

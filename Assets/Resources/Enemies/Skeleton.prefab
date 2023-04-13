@@ -45,10 +45,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CharacterName: Skeleton
-  MaxHealth: 20
-  currentHealth: 20
+  MaxHealth: 7
+  currentHealth: 7
   Initiative: 3
   Position: 1
+  isPlayerCharacter: 0
   Abilities: []
   Passives: []
   LearnedAbilities: []

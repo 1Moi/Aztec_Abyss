@@ -6,6 +6,7 @@ public class CharacterSwitcher : MonoBehaviour
 {
     public List<GameObject> characters;
     private int activeCharacterIndex = 0;
+    private bool Grounded = true;
 
     public int ActiveCharacterIndex
     {
@@ -29,11 +30,12 @@ public class CharacterSwitcher : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        Grounded = characters[activeCharacterIndex].GetComponent<CharacterController2D>().isGrounded;
+        if (Input.GetKeyDown(KeyCode.Q) && Grounded)
         {
             SwitchCharacter(-1);
         }
-        else if (Input.GetKeyDown(KeyCode.E))
+        else if (Input.GetKeyDown(KeyCode.E) && Grounded)
         {
             SwitchCharacter(1);
         }

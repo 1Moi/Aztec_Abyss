@@ -45,10 +45,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CharacterName: Ocelot
-  MaxHealth: 12
-  currentHealth: 12
+  MaxHealth: 6
+  currentHealth: 6
   Initiative: 6
   Position: 1
+  isPlayerCharacter: 0
   Abilities: []
   Passives: []
   LearnedAbilities: []

@@ -55,7 +55,7 @@ public class Ability
 
     public bool IsAOE()
     {
-        return TargetsMin == TargetsMax && TargetsMin == (TargetSpots?.Count ?? 0);
+        return TargetsMin > 2 && TargetsMin == TargetsMax && TargetsMin == (TargetSpots?.Count ?? 0);
     }
 
     public bool DoesDamage()
@@ -63,41 +63,52 @@ public class Ability
         return Damage.Count > 0;
     }
 
-    public void ExecuteAbility(Character user, List<Character> targets)
+    public void ExecuteAbility(Character user, List<Character> targets, Character singleTarget = null)
     {
         Debug.Log($"{AbilityName} being executed on {targets.Count} targets");
 
-        // Code to execute the ability logic
-        foreach (Character target in targets)
+        if (singleTarget != null)
         {
-            // Check if the target's position is in the TargetSpots list
-            bool inTargetSpots = TargetSpots.Contains(target.Position);
-
-            Debug.Log($"Checking conditions for {target.CharacterName}: inTargetSpots={inTargetSpots}, target.Position={target.Position}, TargetSpots={string.Join(",", TargetSpots)}");
-
-            if (inTargetSpots)
+            if (!singleTarget.IsDead() || (singleTarget.IsDead() && Healing == 0))
             {
-                Debug.Log($"Applying effects for {AbilityName} to {target.CharacterName}");
-                // Apply ability effects to the target
-                ApplyEffects(user, new List<Character> { target });
+                Debug.Log($"Applying effects for {AbilityName} to {singleTarget.CharacterName}");
+                ApplyEffects(user, new List<Character> { singleTarget });
             }
         }
-
-        // If the ability is a healing ability, also check friendly characters
-        if (Healing > 0)
+        else
         {
-            List<Character> friendlyTargets = user.IsPlayerCharacter ? CombatSystem.Instance.PlayerCharacters : CombatSystem.Instance.EnemyCharacters;
-            foreach (Character target in friendlyTargets)
+            // Code to execute the ability logic
+            foreach (Character target in targets)
             {
+                // Check if the target's position is in the TargetSpots list
                 bool inTargetSpots = TargetSpots.Contains(target.Position);
 
-                Debug.Log($"Checking conditions for {target.CharacterName} (friendly): inTargetSpots={inTargetSpots}, target.Position={target.Position}, TargetSpots={string.Join(",", TargetSpots)}");
+                Debug.Log($"Checking conditions for {target.CharacterName}: inTargetSpots={inTargetSpots}, target.Position={target.Position}, TargetSpots={string.Join(",", TargetSpots)}");
 
-                if (inTargetSpots)
+                if (inTargetSpots && (!target.IsDead() || (target.IsDead() && Healing == 0)))
                 {
-                    Debug.Log($"Applying effects for {AbilityName} to {target.CharacterName} (friendly)");
+                    Debug.Log($"Applying effects for {AbilityName} to {target.CharacterName}");
                     // Apply ability effects to the target
                     ApplyEffects(user, new List<Character> { target });
+                }
+            }
+
+            // If the ability is a healing ability, also check friendly characters
+            if (Healing > 0)
+            {
+                List<Character> friendlyTargets = user.IsPlayerCharacter ? CombatSystem.Instance.PlayerCharacters : CombatSystem.Instance.EnemyCharacters;
+                foreach (Character target in friendlyTargets)
+                {
+                    bool inTargetSpots = TargetSpots.Contains(target.Position);
+
+                    Debug.Log($"Checking conditions for {target.CharacterName} (friendly): inTargetSpots={inTargetSpots}, target.Position={target.Position}, TargetSpots={string.Join(",", TargetSpots)}");
+
+                    if (inTargetSpots && !target.IsDead())
+                    {
+                        Debug.Log($"Applying effects for {AbilityName} to {target.CharacterName} (friendly)");
+                        // Apply ability effects to the target
+                        ApplyEffects(user, new List<Character> { target });
+                    }
                 }
             }
         }
@@ -136,8 +147,11 @@ public class Ability
             // Apply the taunt effect
             if (IsTaunt)
             {
-                // Apply taunt effect to the target character
-                selectedTarget.ApplyTaunt(user);
+                foreach (Character target in targets)
+                {
+                    target.ApplyTaunt(user);
+                    Debug.Log($"{user.CharacterName} has taunted {target.CharacterName}."); // Added this line to show that the taunt is working
+                }
             }
         }
     }

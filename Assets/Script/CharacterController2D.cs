@@ -16,10 +16,10 @@ public class CharacterController2D : MonoBehaviour
     [SerializeField] private float projectileDuration = 2f;
     [SerializeField] private float flameOffset = 0.5f;
     [SerializeField] private Vector3 spawnOffset = new Vector3(1f, 0, 0);
-    [SerializeField] private GameObject SkillTreeContainer;
+    [SerializeField] public GameObject SkillTreeContainer;
 
     private Rigidbody rb;
-    private bool isGrounded;
+    public bool isGrounded { get; private set; }
     private float moveInput;
     private bool isFacingRight = true;
 

@@ -30,10 +30,21 @@ public class CombatSystem : MonoBehaviour
     private List<Character> selectedTargets;
 
     public static CombatSystem Instance;
+    private MySceneManager sceneManager;
 
     public Ability SelectedAbility
     {
         get { return selectedAbility; }
+    }
+
+    public void SetPlayerCharacters(List<Character> playerCharacters)
+    {
+        PlayerCharacters = playerCharacters;
+    }
+
+    public void SetEnemyTemplates(List<EnemyTemplate> enemyTemplates)
+    {
+        this.enemyTemplates = enemyTemplates;
     }
 
     void Awake()
@@ -50,6 +61,11 @@ public class CombatSystem : MonoBehaviour
 
     void Start()
     {
+        sceneManager = FindObjectOfType<MySceneManager>();
+        skillTreeLoader = GameObject.Find("SkillTreeManager").GetComponent<SkillTreeLoader>();
+
+        List<GameObject> playerCharacterObjects = FindPlayerCharacters();
+
         // Initialize player characters
          PlayerCharacters = playerCharacterObjects.Select(obj => obj.GetComponent<Character>()).ToList();
 
@@ -108,6 +124,23 @@ public class CombatSystem : MonoBehaviour
             InitializeCombat();
     }
 
+    private List<GameObject> FindPlayerCharacters()
+    {
+        List<string> playerCharacterNames = new List<string> { "Aztec", "European", "Child" };
+        List<GameObject> playerCharacters = new List<GameObject>();
+
+        foreach (string name in playerCharacterNames)
+        {
+            GameObject character = GameObject.Find(name);
+            if (character != null)
+            {
+                playerCharacters.Add(character);
+            }
+        }
+
+        return playerCharacters;
+    }
+
     void Update()
     {
         if (TurnOrder == null || PlayerCharacters == null)
@@ -148,7 +181,7 @@ public class CombatSystem : MonoBehaviour
         }
     }
 
-    void InitializeCombat()
+    public void InitializeCombat()
     {
         CalculateTurnOrder();
         SpawnCharacters();
@@ -203,9 +236,9 @@ public class CombatSystem : MonoBehaviour
         {
             Button button = abilityButtons[i];
 
-            if (i < currentCharacter.Abilities.Count)
+            if (i < currentCharacter.LearnedAbilities.Count)
             {
-                Ability ability = currentCharacter.Abilities[i];
+                Ability ability = currentCharacter.LearnedAbilities[i];
                 button.GetComponentInChildren<TextMeshProUGUI>().text = ability.AbilityName;
                 button.GetComponent<Image>().sprite = Resources.Load<Sprite>(ability.ImagePath);
 
@@ -239,40 +272,11 @@ public class CombatSystem : MonoBehaviour
             // Check if selectedTargets have been assigned
             if (selectedTargets != null && selectedTargets.Count > 0)
             {
-                ability.ExecuteAbility(currentCharacter, selectedTargets);
+                ability.ExecuteAbility(currentCharacter, selectedTargets, selectedTargets[0]);
             }
             else
             {
-                if (!playerTurn)
-                {
-                    Character target;
-
-                    // Check if the current character has a TauntTarget
-                    if (currentCharacter.TauntTarget != null)
-                    {
-                        target = currentCharacter.TauntTarget;
-                    }
-                    else
-                    {
-                        // Enemy turn: choose a random target spot for the non-AOE ability
-                        int randomIndex = UnityEngine.Random.Range(0, ability.TargetSpots.Count);
-                        int randomTargetSpot = ability.TargetSpots[randomIndex];
-
-                        // Find the character at the selected target spot
-                        target = PlayerCharacters.Find(c => c.Position == randomTargetSpot);
-                    }
-
-                    if (target != null)
-                    {
-                        // Execute the ability on the selected target
-                        ability.ExecuteAbility(currentCharacter, new List<Character> { target });
-                    }
-                    else
-                    {
-                        Debug.LogWarning("No character found at the selected target spot");
-                    }
-                }
-                else
+                if (playerTurn)
                 {
                     // Player turn: activate the target spot buttons to let the player choose a target spot
                     bool isPlayerTarget = !playerTurn;
@@ -311,6 +315,21 @@ public class CombatSystem : MonoBehaviour
     {
         Debug.Log("OnAbilityButtonClicked: " + ability.AbilityName);
 
+        if (ability == null)
+        {
+            Debug.LogError("Ability is null");
+        }
+
+        if (playerTargetSpotButtons == null)
+        {
+            Debug.LogError("playerTargetSpotButtons is null");
+        }
+
+        if (enemyTargetSpotButtons == null)
+        {
+            Debug.LogError("enemyTargetSpotButtons is null");
+        }    
+
         selectedAbility = ability; // Store the selected ability
 
         bool isAOE = ability.IsAOE();
@@ -332,12 +351,33 @@ public class CombatSystem : MonoBehaviour
 
     private void ToggleTargetSpotButtons(bool isActive, Ability ability, bool isPlayerTarget, bool isHealing)
     {
+        if (ability == null)
+        {
+            Debug.LogError("Ability is null");
+        }
+
+        if (playerTargetSpotButtons == null)
+        {
+            Debug.LogError("playerTargetSpotButtons is null");
+        }
+
+        if (enemyTargetSpotButtons == null)
+        {
+            Debug.LogError("enemyTargetSpotButtons is null");
+        }
+
         bool isAOE = ability == null ? false : ability.IsAOE();
         List<GameObject> buttons = isHealing ? playerTargetSpotButtons : enemyTargetSpotButtons;
 
         foreach (GameObject button in buttons)
         {
             TargetSpotButton targetSpotButton = button.GetComponent<TargetSpotButton>();
+
+            if (targetSpotButton == null)
+            {
+                Debug.LogError("ToggleTargetSpotButtons: targetSpotButton is null");
+            }
+
             if (isActive && (isAOE || ability == null || ability.TargetSpots.Contains(targetSpotButton.targetSpotIndex)))
             {
                 button.SetActive(true);
@@ -360,23 +400,18 @@ public class CombatSystem : MonoBehaviour
 
         // Apply the ability effects to the target in the specified spot
         List<Character> targetList = isPlayerTarget ? PlayerCharacters : EnemyCharacters;
-        int characterIndex = targetSpotIndex - (isPlayerTarget ? 1 : 4); // Adjust the index depending on the target type
 
         if (isHealing)
         {
             targetList = PlayerCharacters;
-            characterIndex = targetSpotIndex - 1; // Adjust the index for healing abilities
         }
 
-        if (characterIndex >= 0 && characterIndex < targetList.Count)
-        {
-            Character target = targetList[characterIndex];
+        Character target = targetList.Find(character => character.Position == targetSpotIndex);
 
-            if (target != null)
-            {
-                selectedTargets = new List<Character> { target };
-                ExecuteTurn(selectedAbility);
-            }
+        if (target != null)
+        {
+            selectedTargets = new List<Character> { target };
+            ExecuteTurn(selectedAbility);
         }
         else
         {
@@ -391,8 +426,19 @@ public class CombatSystem : MonoBehaviour
         Ability chosenAbility = currentCharacter.Abilities[Random.Range(0, currentCharacter.Abilities.Count)];
         Debug.Log("Enemy Turn: " + currentCharacter.CharacterName + " is using " + chosenAbility.AbilityName);
 
-        // Get all characters from positions specified in chosenAbility.TargetSpots
-        List<Character> availableTargets = PlayerCharacters.Where(c => chosenAbility.TargetSpots.Contains(c.Position)).ToList();
+        List<Character> availableTargets;
+
+        // Check if the enemy is taunted
+        if (currentCharacter.TauntTarget != null)
+        {
+            availableTargets = new List<Character> { currentCharacter.TauntTarget };
+            Debug.Log($"{currentCharacter.CharacterName} is taunted and will target {currentCharacter.TauntTarget.CharacterName}.");
+        }
+        else
+        {
+            // Get all characters from positions specified in chosenAbility.TargetSpots
+            availableTargets = PlayerCharacters.Where(c => chosenAbility.TargetSpots.Contains(c.Position)).ToList();
+        }
 
         // Filter out dead characters
         List<Character> aliveTargets = availableTargets.Where(c => c.CurrentHealth > 0).ToList();
@@ -453,14 +499,19 @@ public class CombatSystem : MonoBehaviour
 
     void EndTurn()
     {
+        currentCharacter.TauntTarget = null;
+
+        // Check if the game is over
         if (PlayerCharacters.All(c => c.IsDead()))
         {
             Debug.Log("You lost!");
+            sceneManager.OnWin();
             return;
         }
         if (EnemyCharacters.All(c => c.IsDead()))
         {
             Debug.Log("You won!");
+            sceneManager.OnLose();
             return;
         }
 
