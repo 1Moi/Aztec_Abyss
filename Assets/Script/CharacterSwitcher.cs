@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
+
 
 public class CharacterSwitcher : MonoBehaviour
 {
     public List<GameObject> characters;
     private int activeCharacterIndex = 0;
     private bool Grounded = true;
+    public CinemachineVirtualCamera CMcamera;
 
     public int ActiveCharacterIndex
     {
@@ -34,10 +37,12 @@ public class CharacterSwitcher : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q) && Grounded)
         {
             SwitchCharacter(-1);
+           
         }
         else if (Input.GetKeyDown(KeyCode.E) && Grounded)
         {
             SwitchCharacter(1);
+           
         }
     }
 
@@ -65,9 +70,13 @@ public class CharacterSwitcher : MonoBehaviour
         // Enable the new active character's controller
         characters[newIndex].GetComponent<CharacterController2D>().enabled = true;
 
+        CMcamera.LookAt = characters[newIndex].transform;
+        CMcamera.Follow = characters[newIndex].transform;
+
         // Update the active character index
         activeCharacterIndex = newIndex;
     }
+ 
 
     public List<GameObject> GetCurrentCharacterOrder()
     {
