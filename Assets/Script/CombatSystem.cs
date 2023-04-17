@@ -61,6 +61,19 @@ public class CombatSystem : MonoBehaviour
 
     void Start()
     {
+        Debug.Log("CombatSystem Start");
+
+        foreach (var playerCharacter in PlayerCharacters)
+        {
+            playerCharacter.ClearHealthChangedEventHandlers();
+        }
+
+        // Reset health changed event handlers for enemy characters
+        foreach (var enemyCharacter in EnemyCharacters)
+        {
+            enemyCharacter.ClearHealthChangedEventHandlers();
+        }
+
         sceneManager = FindObjectOfType<MySceneManager>();
         skillTreeLoader = GameObject.Find("SkillTreeManager").GetComponent<SkillTreeLoader>();
 
@@ -396,7 +409,7 @@ public class CombatSystem : MonoBehaviour
 
         // Deactivate the target spot buttons
         bool isPlayerTarget = !playerTurn;
-        ToggleTargetSpotButtons(false, null, isPlayerTarget, isHealing);
+        ToggleTargetSpotButtons(false, selectedAbility, isPlayerTarget, isHealing);
 
         // Apply the ability effects to the target in the specified spot
         List<Character> targetList = isPlayerTarget ? PlayerCharacters : EnemyCharacters;
@@ -467,15 +480,39 @@ public class CombatSystem : MonoBehaviour
 
         // Find the character spot using the character's position
         string spotName = isPlayerCharacter ? $"CharacterSpot_{character.Position}" : $"EnemySpot_{character.Position}";
+        Debug.Log($"Finding '{spotName}' in '{lifeBarParent.name}'");
         Transform characterSpot = lifeBarParent.Find(spotName);
+        Debug.Log($"Found character spot: {characterSpot}");
+
+        if (characterSpot == null)
+        {
+            Debug.LogError($"Character spot '{spotName}' not found");
+            return;
+        }
 
         // Find the life bar within the character spot
-        Transform lifeBar = characterSpot.Find($"LifeBar_{character.Position}");
+        string lifeBarName = $"LifeBar_{character.Position}";
+        Debug.Log($"Finding '{lifeBarName}' in '{characterSpot.name}'");
+        Transform lifeBar = characterSpot.Find(lifeBarName);
+        Debug.Log($"Found life bar: {lifeBar}");
+
+        if (lifeBar == null)
+        {
+            Debug.LogError($"Life bar '{lifeBarName}' not found");
+            return;
+        }
 
         Debug.Log($"Updating life bar for character '{character.CharacterName}' at position {character.Position}");
 
         // Update the life bar value
         Slider slider = lifeBar.GetComponent<Slider>();
+
+        if (slider == null)
+        {
+            Debug.LogError("Slider component not found on life bar");
+            return;
+        }
+
         slider.value = healthPercentage;
 
         // Change the color of the life bar based on the health percentage
@@ -494,7 +531,35 @@ public class CombatSystem : MonoBehaviour
             lifeBarColor = Color.red;
         }
 
-        slider.transform.Find("Fill Area").Find("Fill").GetComponent<Image>().color = lifeBarColor;
+        Debug.Log($"Finding 'Fill Area' in '{slider.transform.name}'");
+        Transform fillArea = slider.transform.Find("Fill Area");
+        Debug.Log($"Found fill area: {fillArea}");
+
+        if (fillArea == null)
+        {
+            Debug.LogError("Fill Area not found on life bar slider");
+            return;
+        }
+
+        Debug.Log($"Finding 'Fill' in '{fillArea.name}'");
+        Transform fill = fillArea.Find("Fill");
+        Debug.Log($"Found fill: {fill}");
+
+        if (fill == null)
+        {
+            Debug.LogError("Fill not found on life bar Fill Area");
+            return;
+        }
+
+        Image fillImage = fill.GetComponent<Image>();
+
+        if (fillImage == null)
+        {
+            Debug.LogError("Image component not found on life bar Fill");
+            return;
+        }
+
+        fillImage.color = lifeBarColor;
     }
 
     void EndTurn()
@@ -533,5 +598,13 @@ public class CombatSystem : MonoBehaviour
     Character GetRandomEnemy()
     {
         return EnemyCharacters.Where(c => !c.IsDead()).OrderBy(_ => Random.value).FirstOrDefault();
+    }
+
+    void OnDestroy()
+    {
+        if (Instance == this)
+        {
+            Instance = null;
+        }
     }
 }
