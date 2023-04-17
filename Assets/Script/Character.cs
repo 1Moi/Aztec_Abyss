@@ -67,6 +67,11 @@ public class Character : MonoBehaviour
 
     public event Action<float> OnHealthChanged;
 
+    public void ClearHealthChangedEventHandlers()
+    {
+        OnHealthChanged = null;
+    }
+
     public Character(string characterName, int maxHealth, int initiative)
     {
         CharacterName = characterName;
