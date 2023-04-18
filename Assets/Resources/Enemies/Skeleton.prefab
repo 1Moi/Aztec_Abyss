@@ -55,5 +55,5 @@ MonoBehaviour:
   LearnedAbilities: []
   LearnedPassives: []
   Resistances: []
-  CharacterImage: {fileID: 21300000, guid: bf5c1c04803c5f64eb6c1f6843fc8c89, type: 3}
+  CharacterImage: {fileID: 21300000, guid: c2f084e9ab2ee754495edeb992b90b1c, type: 3}
   abilityPoints: 5

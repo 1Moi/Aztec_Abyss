@@ -11,7 +11,7 @@
         "TargetsMax": 1,
         "TargetSpots": [1, 2],
         "Damage": {
-            "Physical": 2
+            "Physical": 4
         },
         "Healing": 0,
         "BuffDuration": 0,
@@ -32,6 +32,86 @@
         "TargetSpots": [1, 2, 3],
         "Damage": {
             "Physical": 3
+        },
+        "Healing": 0,
+        "BuffDuration": 0,
+        "DebuffDuration": 0,
+        "IsTaunt": false,
+        "IsStun": false,
+        "IsSelf": false
+      },
+      {
+        "Id": 22,
+        "AbilityName": "Eldritch Scream",
+        "Prerequisites": [],
+        "ExclusiveGroup": 0,
+        "RangeMin": 4,
+        "RangeMax": 6,
+        "TargetsMin": 3,
+        "TargetsMax": 3,
+        "TargetSpots": [1, 2, 3],
+        "Damage": {
+            "Physical": 2
+        },
+        "Healing": 0,
+        "BuffDuration": 0,
+        "DebuffDuration": 0,
+        "IsTaunt": false,
+        "IsStun": false,
+        "IsSelf": false
+      },
+      {
+        "Id": 23,
+        "AbilityName": "Owl Peck",
+        "Prerequisites": [],
+        "ExclusiveGroup": 0,
+        "RangeMin": 4,
+        "RangeMax": 6,
+        "TargetsMin": 1,
+        "TargetsMax": 1,
+        "TargetSpots": [1, 2, 3],
+        "Damage": {
+            "Physical": 2
+        },
+        "Healing": 0,
+        "BuffDuration": 0,
+        "DebuffDuration": 0,
+        "IsTaunt": false,
+        "IsStun": true,
+        "IsSelf": false
+      },
+      {
+        "Id": 24,
+        "AbilityName": "Wolf Bite",
+        "Prerequisites": [],
+        "ExclusiveGroup": 0,
+        "RangeMin": 4,
+        "RangeMax": 6,
+        "TargetsMin": 1,
+        "TargetsMax": 1,
+        "TargetSpots": [1, 2],
+        "Damage": {
+            "Physical": 5
+        },
+        "Healing": 0,
+        "BuffDuration": 0,
+        "DebuffDuration": 0,
+        "IsTaunt": false,
+        "IsStun": false,
+        "IsSelf": false
+      },
+      {
+        "Id": 25,
+        "AbilityName": "Tentacle Whip",
+        "Prerequisites": [],
+        "ExclusiveGroup": 0,
+        "RangeMin": 4,
+        "RangeMax": 6,
+        "TargetsMin": 1,
+        "TargetsMax": 1,
+        "TargetSpots": [1, 2, 3],
+        "Damage": {
+            "Physical": 4
         },
         "Healing": 0,
         "BuffDuration": 0,

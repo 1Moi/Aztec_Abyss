@@ -462,11 +462,19 @@ public class CombatSystem : MonoBehaviour
             aliveTargets = availableTargets;
         }
 
-        // Choose a random target
-        Character chosenTarget = aliveTargets[Random.Range(0, aliveTargets.Count)];
+        if (chosenAbility.IsAOE())
+        {
+            // Execute the turn with all available targets
+            chosenAbility.ExecuteAbility(currentCharacter, aliveTargets);
+            EndTurn();
+            yield break;
+        }else 
+        {
+            Character chosenTarget = aliveTargets[Random.Range(0, aliveTargets.Count)];
+            // Execute the turn with the chosen target
+            chosenAbility.ExecuteAbility(currentCharacter, new List<Character> { chosenTarget });
+        } 
 
-        // Execute the turn with the chosen target
-        chosenAbility.ExecuteAbility(currentCharacter, new List<Character> { chosenTarget });
 
         Debug.Log("Enemy Turn: " + currentCharacter.CharacterName + " has finished their turn.");
 
