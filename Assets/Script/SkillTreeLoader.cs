@@ -288,7 +288,7 @@ public class SkillTreeLoader : MonoBehaviour
         skillTreeWindows[currentSkillTreeIndex].SetActive(true);
     }
 
-    private void UpdateAbilityPointCount(GameObject skillTreeWindow, int points)
+    public void UpdateAbilityPointCount(GameObject skillTreeWindow, int points)
     {
         TextMeshProUGUI abilityPointCount = skillTreeWindow.transform.Find("AbilityPointCount").GetComponent<TextMeshProUGUI>();
         abilityPointCount.text = "Ability Points: " + points;

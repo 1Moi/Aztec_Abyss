@@ -9,7 +9,7 @@ public class TooltipController : MonoBehaviour, IPointerEnterHandler, IPointerEx
     private Image tooltipImage;
     private TextMeshProUGUI abilityNameText;
     private bool isPointerOver = false;
-    private Vector2 offset = new Vector2(300, 20);
+    private Vector2 offset = new Vector2(350, 20);
 
     void Start()
     {

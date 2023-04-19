@@ -58,7 +58,7 @@ public class Character : MonoBehaviour
     [SerializeField]
     public Sprite CharacterImage;
 
-    public int abilityPoints = 3;
+    public int abilityPoints = 1;
 
     public EnemyTemplate EnemyTemplate { get; set; }
 
@@ -252,5 +252,10 @@ public class Character : MonoBehaviour
     private void UpdateHealthUI()
     {
         // Update the character's health UI here
+    }
+
+    public void LevelUp()
+    {
+        abilityPoints++;
     }
 }
