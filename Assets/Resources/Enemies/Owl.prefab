@@ -44,9 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3d54f3b7a8af184f9c169841a2de928, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharacterName: Skeleton
-  MaxHealth: 22
-  currentHealth: 22
+  CharacterName: Owl
+  MaxHealth: 17
+  currentHealth: 17
   Initiative: 3
   Position: 1
   isPlayerCharacter: 0

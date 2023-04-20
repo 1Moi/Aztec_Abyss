@@ -26,6 +26,11 @@ public class LvLUp : MonoBehaviour
                 Debug.Log("Ability Points: " + player.abilityPoints);
                 Debug.Log("Level Up Complete for " + player.CharacterName);
                 skillTreeLoader.UpdateAbilityPointCount(skillTreeLoader.skillTreeWindows[i], player.abilityPoints);
+                player.currentHealth += 5;
+                if (player.currentHealth >= player.MaxHealth)
+                {
+                    player.currentHealth = player.MaxHealth;
+                }
             }
             
             Destroy(gameObject);

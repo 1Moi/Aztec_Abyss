@@ -13,7 +13,7 @@ public class Character : MonoBehaviour
     [SerializeField]
     public int MaxHealth;
     [SerializeField]
-    private int currentHealth;
+    public int currentHealth;
     public int CurrentHealth
     {
         get { return currentHealth; }

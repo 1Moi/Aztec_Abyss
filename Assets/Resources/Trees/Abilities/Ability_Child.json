@@ -13,7 +13,7 @@
       "TargetSpots": [1, 2, 3],
       "Damage": {},
       "ResistanceChanges": {},
-      "Healing": 3,
+      "Healing": 4,
       "BuffDuration": 0,
       "DebuffDuration": 0,
       "IsTaunt": false,
